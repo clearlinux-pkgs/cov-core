@@ -4,7 +4,7 @@
 #
 Name     : cov-core
 Version  : 1.15.0
-Release  : 8
+Release  : 9
 URL      : https://pypi.python.org/packages/source/c/cov-core/cov-core-1.15.0.tar.gz
 Source0  : https://pypi.python.org/packages/source/c/cov-core/cov-core-1.15.0.tar.gz
 Summary  : plugin core for use by pytest-cov, nose-cov and nose2-cov
