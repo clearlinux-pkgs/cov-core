@@ -4,13 +4,14 @@
 #
 Name     : cov-core
 Version  : 1.15.0
-Release  : 12
+Release  : 13
 URL      : https://pypi.python.org/packages/source/c/cov-core/cov-core-1.15.0.tar.gz
 Source0  : https://pypi.python.org/packages/source/c/cov-core/cov-core-1.15.0.tar.gz
 Summary  : plugin core for use by pytest-cov, nose-cov and nose2-cov
 Group    : Development/Tools
 License  : MIT
 Requires: cov-core-python
+BuildRequires : coverage
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : python-dev
@@ -35,13 +36,16 @@ python components for the cov-core package.
 %setup -q -n cov-core-1.15.0
 
 %build
+export LANG=C
+export SOURCE_DATE_EPOCH=1484540007
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
+export SOURCE_DATE_EPOCH=1484540007
 rm -rf %{buildroot}
-python2 setup.py build -b py2 install --root=%{buildroot}
-python3 setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files
 %defattr(-,root,root,-)
