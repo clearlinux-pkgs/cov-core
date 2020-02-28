@@ -4,27 +4,25 @@
 #
 Name     : cov-core
 Version  : 1.15.0
-Release  : 36
+Release  : 37
 URL      : http://pypi.debian.net/cov-core/cov-core-1.15.0.tar.gz
 Source0  : http://pypi.debian.net/cov-core/cov-core-1.15.0.tar.gz
 Summary  : plugin core for use by pytest-cov, nose-cov and nose2-cov
 Group    : Development/Tools
 License  : MIT
-Requires: cov-core-python3
-Requires: cov-core-license
-Requires: cov-core-python
+Requires: cov-core-license = %{version}-%{release}
+Requires: cov-core-python = %{version}-%{release}
+Requires: cov-core-python3 = %{version}-%{release}
 Requires: coverage
+BuildRequires : buildreq-distutils3
 BuildRequires : coverage
-BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
-BuildRequires : setuptools
 
 %description
+cov-core
 ========
-        
-        This is a lib package for use by pytest-cov, nose-cov and nose2-cov.  Unless you're developing a
-        coverage plugin for a test framework, you probably want one of those.
+
+This is a lib package for use by pytest-cov, nose-cov and nose2-cov.  Unless you're developing a
+coverage plugin for a test framework, you probably want one of those.
 
 %package license
 Summary: license components for the cov-core package.
@@ -37,7 +35,7 @@ license components for the cov-core package.
 %package python
 Summary: python components for the cov-core package.
 Group: Default
-Requires: cov-core-python3
+Requires: cov-core-python3 = %{version}-%{release}
 
 %description python
 python components for the cov-core package.
@@ -47,6 +45,7 @@ python components for the cov-core package.
 Summary: python3 components for the cov-core package.
 Group: Default
 Requires: python3-core
+Provides: pypi(cov-core)
 
 %description python3
 python3 components for the cov-core package.
@@ -54,20 +53,29 @@ python3 components for the cov-core package.
 
 %prep
 %setup -q -n cov-core-1.15.0
+cd %{_builddir}/cov-core-1.15.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1529097448
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1582913790
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/cov-core
-cp LICENSE.txt %{buildroot}/usr/share/doc/cov-core/LICENSE.txt
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/cov-core
+cp %{_builddir}/cov-core-1.15.0/LICENSE.txt %{buildroot}/usr/share/package-licenses/cov-core/07800edab5f4e77a7371e226f11ba91f963a11cf
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -76,8 +84,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/cov-core/LICENSE.txt
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/cov-core/07800edab5f4e77a7371e226f11ba91f963a11cf
 
 %files python
 %defattr(-,root,root,-)
