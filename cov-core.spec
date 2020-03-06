@@ -4,7 +4,7 @@
 #
 Name     : cov-core
 Version  : 1.15.0
-Release  : 37
+Release  : 38
 URL      : http://pypi.debian.net/cov-core/cov-core-1.15.0.tar.gz
 Source0  : http://pypi.debian.net/cov-core/cov-core-1.15.0.tar.gz
 Summary  : plugin core for use by pytest-cov, nose-cov and nose2-cov
@@ -18,11 +18,10 @@ BuildRequires : buildreq-distutils3
 BuildRequires : coverage
 
 %description
-cov-core
 ========
-
-This is a lib package for use by pytest-cov, nose-cov and nose2-cov.  Unless you're developing a
-coverage plugin for a test framework, you probably want one of those.
+        
+        This is a lib package for use by pytest-cov, nose-cov and nose2-cov.  Unless you're developing a
+        coverage plugin for a test framework, you probably want one of those.
 
 %package license
 Summary: license components for the cov-core package.
@@ -45,7 +44,8 @@ python components for the cov-core package.
 Summary: python3 components for the cov-core package.
 Group: Default
 Requires: python3-core
-Provides: pypi(cov-core)
+Provides: pypi(cov_core)
+Requires: pypi(coverage)
 
 %description python3
 python3 components for the cov-core package.
@@ -60,8 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582913790
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1583532211
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
