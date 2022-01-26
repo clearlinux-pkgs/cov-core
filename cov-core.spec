@@ -4,7 +4,7 @@
 #
 Name     : cov-core
 Version  : 1.15.0
-Release  : 53
+Release  : 54
 URL      : http://pypi.debian.net/cov-core/cov-core-1.15.0.tar.gz
 Source0  : http://pypi.debian.net/cov-core/cov-core-1.15.0.tar.gz
 Summary  : plugin core for use by pytest-cov, nose-cov and nose2-cov
@@ -13,9 +13,8 @@ License  : MIT
 Requires: cov-core-license = %{version}-%{release}
 Requires: cov-core-python = %{version}-%{release}
 Requires: cov-core-python3 = %{version}-%{release}
-Requires: coverage
 BuildRequires : buildreq-distutils3
-BuildRequires : coverage
+BuildRequires : pypi(coverage)
 
 %description
 ========
@@ -60,7 +59,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1635715416
+export SOURCE_DATE_EPOCH=1643219793
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
